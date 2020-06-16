@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { fade } from "@material-ui/core";
 import { theme } from "helpers/theme";
-import { MainButton } from "components/MainButton";
+import { MainButton } from "components/MainButton/MainButton";
 import { Link } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { authValues, token } from "components/Auth";

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {TextField} from "components/TextField";
+import {TextField} from "components/TextField/TextField";
 const TextFieldAuth = styled(TextField)`
   margin-bottom: 20px;
 `;

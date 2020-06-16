@@ -7,6 +7,7 @@
 * [Yup](https://github.com/jquense/yup)
 * [Material-ui](https://github.com/mui-org/material-ui)
 * [Styled-components](https://github.com/styled-components/styled-components)
+* [Storybook](https://github.com/storybookjs/storybook)
 
 #### Authorization
 ![](https://github.com/vamo089/transfer-money/blob/master/public/images/preview_auth.jpg)

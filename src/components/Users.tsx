@@ -3,7 +3,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { filterUserList } from "services/filterUserList";
 import { debounce } from "helpers/debounce";
 import { createState } from "helpers/createState";
-import { TextField } from "components/TextField";
+import { TextField } from "components/TextField/TextField";
 
 const getUsersList = debounce((value) => {
   return filterUserList(value).then((data) => data);
