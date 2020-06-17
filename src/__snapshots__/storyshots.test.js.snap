@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots MainButton Main Button 1`] = `
+<button
+  className="MuiButtonBase-root MuiButton-root MuiButton-outlined sc-AxjAm gxUEBd MuiButton-fullWidth"
+  disabled={false}
+  loader={false}
+  onBlur={[Function]}
+  onDragLeave={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  tabIndex={0}
+  type="button"
+>
+  <span
+    className="MuiButton-label label"
+  >
+    button name
+  </span>
+</button>
+`;
+
+exports[`Storyshots TextField Text Field 1`] = `
+Array [
+  <div
+    className="MuiFormControl-root MuiTextField-root sc-AxirZ egUAcV"
+  >
+    <label
+      className="MuiFormLabel-root MuiInputLabel-root labelRoot MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+      data-shrink={false}
+    >
+      placeholder
+    </label>
+    <div
+      className="MuiInputBase-root MuiOutlinedInput-root inputRoot MuiInputBase-formControl"
+      onClick={[Function]}
+    >
+      <input
+        aria-invalid={false}
+        autoFocus={false}
+        className="MuiInputBase-input MuiOutlinedInput-input"
+        disabled={false}
+        onAnimationStart={[Function]}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        required={false}
+        type="text"
+      />
+      <fieldset
+        aria-hidden={true}
+        className="PrivateNotchedOutline-root-91 MuiOutlinedInput-notchedOutline"
+      >
+        <legend
+          className="PrivateNotchedOutline-legendLabelled-93"
+        >
+          <span>
+            placeholder
+          </span>
+        </legend>
+      </fieldset>
+    </div>
+  </div>,
+  <div
+    className="MuiBox-root MuiBox-root-96"
+  />,
+]
+`;
