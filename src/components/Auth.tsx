@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { theme } from "helpers/theme";
 import { createState } from "helpers/createState";
 import { ROUTES } from "helpers/constants";
-import { Login } from "components/Login";
 import { Registration } from "components/Registration";
+import LoginContainer from "components/Login/LoginContainer";
 
 const AuthContainer = styled.div`
   width: 100%;
@@ -25,7 +25,7 @@ export const token = createState<string | null>(null);
 export const Auth = () => {
   return (
     <AuthContainer>
-      <Route path={ROUTES.login} component={Login} />
+      <Route path={ROUTES.login} component={LoginContainer} />
       <Route path={ROUTES.registration} component={Registration} />
     </AuthContainer>
   );
