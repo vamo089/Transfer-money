@@ -2,7 +2,6 @@ import React from "react";
 import { Route } from "react-router-dom";
 import styled from "styled-components";
 import { theme } from "helpers/theme";
-import { createState } from "helpers/createState";
 import { ROUTES } from "helpers/constants";
 import LoginContainer from "components/auth/Login/LoginContainer";
 import { RegistrationContainer } from "./Registration/RegistrationContainer";
@@ -20,7 +19,6 @@ const AuthContainer = styled.div`
   box-sizing: border-box;
 `;
 
-export const token = createState<string | null>(null);
 export const Auth = () => {
   return (
     <AuthContainer>
