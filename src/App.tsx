@@ -1,16 +1,13 @@
 import React from "react";
-import { Redirect, Route, Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { SnackbarProvider } from "notistack";
-import cookies from "js-cookie";
 import { Normalize } from "styled-normalize";
 import styled, { createGlobalStyle } from "styled-components";
-import { Auth } from "components/auth/Auth";
-import { Account } from "components/Account";
 import { theme } from "helpers/theme";
-import { ROUTES } from "helpers/constants";
 import { Provider } from "react-redux";
-import store, { getState } from "store";
+import store from "store";
+import Routing from "components/Routing";
 const GlobalStyle = createGlobalStyle`
 body{
   @font-face {
@@ -33,9 +30,7 @@ const Container = styled.div`
 
 export const history = createBrowserHistory();
 
-function App() {
-  const isTokenExist = getState.auth.token || cookies.get("token");
-
+const App = () => {
   return (
     <Provider store={store}>
       <Router history={history}>
@@ -51,21 +46,12 @@ function App() {
           }}
         >
           <Container>
-            <Redirect
-              from="*"
-              to={isTokenExist ? ROUTES.account : ROUTES.login}
-            />
-
-            {isTokenExist ? (
-              <Route to={ROUTES.account} component={Account} />
-            ) : (
-              <Auth />
-            )}
+            <Routing />
           </Container>
         </SnackbarProvider>
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;
