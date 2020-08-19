@@ -1,18 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import {TextField} from "components/TextField/TextField";
+import { TextField } from "components/TextField/TextField";
+import { RegistrationInitialValues } from "./RegistrationContainer";
+import { FormikHandlers } from "formik/dist/types";
 const TextFieldAuth = styled(TextField)`
   margin-bottom: 20px;
 `;
 
 interface Props {
-  values: {
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  };
-  handleChange: (eventOrPath: string | React.ChangeEvent<any>) => void | ((eventOrTextValue: string | React.ChangeEvent<any>) => void);
+  values: RegistrationInitialValues;
+  handleChange: FormikHandlers["handleChange"];
 }
 
 export const RegistrationFields = ({ values, handleChange }: Props) => {

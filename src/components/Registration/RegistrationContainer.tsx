@@ -1,27 +1,34 @@
 import React, { useState } from "react";
-import { Login, Container } from "components/Login/Login";
 import { Formik } from "formik";
-import { object, string } from "yup";
-import { setEmail, setToken } from "store/actions/auth";
+import { object, ref, string } from "yup";
+import { registrationRequest } from "services/registrationRequest";
+import cookies from "js-cookie";
 import { useSnackbar } from "notistack";
+import { ROUTES } from "helpers/constants";
+import { history } from "App";
+import { Container, Registration } from "components/Registration/Registration";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
-import { loginRequest } from "services/loginRequest";
-import { ROUTES } from "helpers/constants";
-import cookies from "js-cookie";
-import { history } from "App";
+import { setEmail, setToken } from "store/actions/auth";
 
-export interface LoginInitialValues {
+export interface RegistrationInitialValues {
+  username: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 const validationSchema = object({
+  username: string().min(3).required(),
   email: string().email().required(),
   password: string().min(6).required(),
+  confirmPassword: string()
+    .min(6)
+    .oneOf([ref("password"), null])
+    .required(),
 });
 
-export const LoginContainer = () => {
+export const RegistrationContainer = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [mainButtonLoader, setMainButtonLoader] = useState<boolean>(false);
 
@@ -31,15 +38,17 @@ export const LoginContainer = () => {
     (state) => state.auth.email
   );
 
-  const initialValues: LoginInitialValues = {
+  const initialValues: RegistrationInitialValues = {
+    username: "",
     email: savedEmail,
     password: "",
+    confirmPassword: "",
   };
 
-  const onSubmit = (values: { email: string; password: string }) => {
-    const { email, password } = values;
+  const onSubmit = (values: RegistrationInitialValues) => {
+    const { username, email, password } = values;
     setMainButtonLoader(true);
-    loginRequest(email, password)
+    registrationRequest(username, password, email)
       .then(({ id_token }) => {
         cookies.set("token", id_token);
         history.push(ROUTES.account);
@@ -64,11 +73,11 @@ export const LoginContainer = () => {
             dispatch(setEmail(values.email));
           }
           return (
-            <Login
+            <Registration
               values={values}
-              mainButtonLoader={mainButtonLoader}
-              handleChange={handleChange}
               isValid={isValid}
+              handleChange={handleChange}
+              mainButtonLoader={mainButtonLoader}
             />
           );
         }}
@@ -76,5 +85,3 @@ export const LoginContainer = () => {
     </Container>
   );
 };
-
-export default LoginContainer;
