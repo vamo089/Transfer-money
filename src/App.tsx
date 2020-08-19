@@ -5,7 +5,7 @@ import { SnackbarProvider } from "notistack";
 import cookies from "js-cookie";
 import { Normalize } from "styled-normalize";
 import styled, { createGlobalStyle } from "styled-components";
-import { Auth } from "components/Auth";
+import { Auth } from "components/auth/Auth";
 import { Account } from "components/Account";
 import { theme } from "helpers/theme";
 import { ROUTES } from "helpers/constants";

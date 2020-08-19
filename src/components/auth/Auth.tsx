@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { theme } from "helpers/theme";
 import { createState } from "helpers/createState";
 import { ROUTES } from "helpers/constants";
-import LoginContainer from "components/Login/LoginContainer";
+import LoginContainer from "components/auth/Login/LoginContainer";
 import { RegistrationContainer } from "./Registration/RegistrationContainer";
 
 const AuthContainer = styled.div`

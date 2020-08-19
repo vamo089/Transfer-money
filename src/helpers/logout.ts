@@ -1,4 +1,4 @@
-import {token} from "components/Auth";
+import {token} from "components/auth/Auth";
 import Cookies from "js-cookie";
 import {history} from "App";
 import {ROUTES} from "helpers/constants";
