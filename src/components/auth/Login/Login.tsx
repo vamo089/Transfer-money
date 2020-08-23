@@ -25,7 +25,7 @@ const SubText = styled.div`
   }
 `;
 
-interface LoginProps {
+interface Props {
   values: LoginInitialValues;
   isValid: boolean;
   mainButtonLoader: boolean;
@@ -37,7 +37,7 @@ export const Login = ({
   mainButtonLoader,
   isValid,
   handleChange,
-}: LoginProps) => {
+}: Props) => {
   return (
     <Form>
       <TextField

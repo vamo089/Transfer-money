@@ -7,13 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { UserInfo } from "services/getUserInfo";
 import { setTransferUserData } from "store/actions/account";
+import { FormikHandlers } from "formik/dist/types";
+import { TransferInitialValues } from "components/account/Transfer/TransferContainer";
 
 const getUsersList = debounce((value) => {
   return filterUserList(value).then((data) => data);
 }, 1000);
 
-export const Users = (props: any) => {
-  const { values, handleChange, setFieldValue } = props;
+interface Props {
+  values: TransferInitialValues;
+  handleChange: FormikHandlers["handleChange"];
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
+}
+export const Users = ({ values, setFieldValue, handleChange }: Props) => {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<any>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
