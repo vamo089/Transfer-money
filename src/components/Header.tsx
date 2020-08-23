@@ -4,8 +4,10 @@ import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { theme } from "helpers/theme";
 import { logout } from "helpers/logout";
-import { userNameData } from "components/Account";
 import { Grid } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
+import { UserInfo } from "services/getUserInfo";
 
 const Container = styled(Grid)`
   width: 100%;
@@ -51,7 +53,10 @@ const Logout = styled.div`
 `;
 
 export const Header = () => {
-  const { name, balance } = userNameData.get();
+  const userData = useSelector<RootState, Omit<UserInfo, "id" | "email">>(
+    (state) => state.account.userData
+  );
+  const { name, balance } = userData;
   return (
     <Container>
       <RightSide>

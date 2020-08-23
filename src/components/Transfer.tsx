@@ -4,17 +4,19 @@ import { object, string } from "yup";
 import { Form, Formik } from "formik";
 import { TextField } from "components/TextField/TextField";
 import { MainButton } from "components/MainButton/MainButton";
-import { transferUserName, Users } from "components/Users";
+import { Users } from "components/Users";
 import { Typography, Card, Grid, Toolbar as _Toolbar } from "@material-ui/core";
-import { getUserInfo } from "services/getUserInfo";
+import { getUserInfo, UserInfo } from "services/getUserInfo";
 
 import { useSnackbar } from "notistack";
 import { debounce } from "helpers/debounce";
 import { createTransaction } from "services/createTransaction";
 import { logout } from "helpers/logout";
-import { previousTransactionData, userNameData } from "components/Account";
 import { theme } from "helpers/theme";
 import { getListOfTransactions } from "services/getListOfTransactions";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store";
+import { setPreviousTransactionData, setUserData } from "store/actions/account";
 
 const Container = styled.div`
   padding: 35px;
@@ -26,14 +28,20 @@ const Toolbar = styled(_Toolbar)`
 
 const currentUserBalance = debounce(() => {
   return getUserInfo()
-    .then(user_info_token => user_info_token.balance)
+    .then((user_info_token) => user_info_token.balance)
     .catch(({ response }) => response.data === "UnauthorizedError" && logout());
 }, 1000);
 
 export const Transfer = () => {
   const [mainButtonLoader, setMainButtonLoader] = useState<boolean>(false);
   const { enqueueSnackbar } = useSnackbar();
-  const transferUserNameData = transferUserName.get()?.name || "";
+
+  const dispatch = useDispatch();
+
+  const transferUserData = useSelector<
+    RootState,
+    Omit<UserInfo, "balance" | "email"> | null
+  >((state) => state.account.transferUserData);
 
   const onSubmit = (
     values: { username: string; sum: string },
@@ -48,14 +56,14 @@ export const Transfer = () => {
 
     balance.then((balance) => {
       if (parseInt(sum) <= balance) {
-        createTransaction(username, sum).then(({trans_token}) => {
+        createTransaction(username, sum).then(({ trans_token }) => {
           enqueueSnackbar(`You sent ${sum} to ${username}`, {
             variant: "info",
           });
           setFieldValue("sum", "");
-          userNameData.set({ ...trans_token });
+          dispatch(setUserData({ ...trans_token }));
           getListOfTransactions().then((data) =>
-            previousTransactionData.set(data)
+            dispatch(setPreviousTransactionData(data))
           );
         });
       } else {
@@ -85,11 +93,14 @@ export const Transfer = () => {
             username: string().required(),
             sum: string().required(),
           })}
-          onSubmit={(values, { setFieldValue }) => onSubmit(values, setFieldValue)}
+          onSubmit={(values, { setFieldValue }) =>
+            onSubmit(values, setFieldValue)
+          }
         >
           {(params) => {
             const { values, isValid, handleChange } = params;
-            const autocompleteValue = values.username === transferUserNameData;
+            const autocompleteValue =
+              values.username === transferUserData?.name;
             return (
               <Form>
                 <Users {...params} />
@@ -109,7 +120,7 @@ export const Transfer = () => {
                     disabled={!isValid || !autocompleteValue}
                     type="submit"
                     variant="outlined"
-                    loader={mainButtonLoader ? 1:0}
+                    loader={mainButtonLoader ? 1 : 0}
                     fullWidth
                   >
                     Transfer

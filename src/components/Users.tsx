@@ -2,17 +2,15 @@ import React, { ChangeEvent } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { filterUserList } from "services/filterUserList";
 import { debounce } from "helpers/debounce";
-import { createState } from "helpers/createState";
 import { TextField } from "components/TextField/TextField";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store";
+import { UserInfo } from "services/getUserInfo";
+import { setTransferUserData } from "store/actions/account";
 
 const getUsersList = debounce((value) => {
   return filterUserList(value).then((data) => data);
 }, 1000);
-
-export const transferUserName = createState<{
-  id: string;
-  name: string;
-} | null>(null);
 
 export const Users = (props: any) => {
   const { values, handleChange, setFieldValue } = props;
@@ -20,10 +18,17 @@ export const Users = (props: any) => {
   const [options, setOptions] = React.useState<any>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  const transferUserNameData = transferUserName.get()?.name;
+  const dispatch = useDispatch();
 
-  const autocompleteOnChange = (value: { id: string; name: string } | null) => {
-    transferUserName.set(value);
+  const transferUserNameData = useSelector<
+    RootState,
+    Omit<UserInfo, "balance" | "email"> | null
+  >((state) => state.account.transferUserData);
+
+  const autocompleteOnChange = (
+    value: Omit<UserInfo, "balance" | "email"> | null
+  ) => {
+    dispatch(setTransferUserData(value));
     setFieldValue("username", value?.name);
   };
 
@@ -53,7 +58,7 @@ export const Users = (props: any) => {
       renderInput={(renderInputParams) => (
         <TextField
           onChange={onChange}
-          onBlur={() => setFieldValue("username", transferUserNameData)}
+          onBlur={() => setFieldValue("username", transferUserNameData?.name)}
           variant="outlined"
           name="username"
           label="User Name"

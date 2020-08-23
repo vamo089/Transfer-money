@@ -14,7 +14,7 @@ export const setUserData = (
 };
 
 export const setTransferUserData = (
-  transferUserData: Omit<UserInfo, "balance" | "email">
+  transferUserData: Omit<UserInfo, "balance" | "email"> | null
 ): AccountActionTypes => {
   return {
     type: SET_TRANSFER_USER_DATA,

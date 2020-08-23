@@ -9,7 +9,7 @@ import { TransactionResponse } from "services/getListOfTransactions";
 
 interface AuthState {
   userData: Omit<UserInfo, "id" | "email">;
-  transferUserData: Omit<UserInfo, "balance" | "email">;
+  transferUserData: Omit<UserInfo, "balance" | "email"> | null;
   previousTransactionData: TransactionResponse[];
 }
 
@@ -18,10 +18,7 @@ const initialState: AuthState = {
     name: "",
     balance: 0,
   },
-  transferUserData: {
-    id: "",
-    name: "",
-  },
+  transferUserData: null,
   previousTransactionData: [],
 };
 

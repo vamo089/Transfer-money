@@ -1,6 +1,5 @@
 import React from "react";
 import { theme } from "helpers/theme";
-import { previousTransactionData } from "components/Account";
 import { TransactionResponse } from "services/getListOfTransactions";
 import styled from "styled-components";
 import {
@@ -16,6 +15,8 @@ import {
   Paper as _Paper,
   Toolbar as _Toolbar,
 } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
 const Toolbar = styled(_Toolbar)`
   border-bottom: 1px solid ${theme.colors.primary};
@@ -136,7 +137,12 @@ export const ListOfTransactions = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const tableData = createData(previousTransactionData.get());
+  const previousTransactionData = useSelector<
+    RootState,
+    TransactionResponse[]
+  >((state) => state.account.previousTransactionData);
+
+  const tableData = createData(previousTransactionData);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,

@@ -12,7 +12,7 @@ interface SetUserData {
 
 interface SetTransferUserData {
   type: typeof SET_TRANSFER_USER_DATA;
-  payload: Omit<UserInfo, "balance" | "email">;
+  payload: Omit<UserInfo, "balance" | "email"> | null;
 }
 
 interface SetPreviousTransactionData {
