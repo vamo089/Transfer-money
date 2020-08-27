@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { Login, Container } from "components/auth/Login/Login";
-import { Formik } from "formik";
+import React, {ChangeEvent, useState} from "react";
+import { Login } from "components/auth/Login/Login";
 import { object, string } from "yup";
-import { setEmail, setToken } from "store/actions/auth";
 import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers";
 import { loginRequest } from "services/loginRequest";
 import { ROUTES } from "helpers/constants";
+import {setEmail, setToken} from "store/actions/auth";
 import cookies from "js-cookie";
 import { history } from "App";
 
@@ -26,17 +27,25 @@ export const LoginContainer = () => {
   const [mainButtonLoader, setMainButtonLoader] = useState<boolean>(false);
 
   const dispatch = useDispatch();
-
   const savedEmail = useSelector<RootState, string>(
     (state) => state.auth.email
   );
 
-  const initialValues: LoginInitialValues = {
-    email: savedEmail,
-    password: "",
-  };
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    errors,
+    formState: { isValid },
+  } = useForm<LoginInitialValues>({
+    resolver: yupResolver(validationSchema),
+    mode: "all",
+    defaultValues: {
+      email: savedEmail,
+    },
+  });
 
-  const onSubmit = (values: { email: string; password: string }) => {
+  const onSubmit = (values: LoginInitialValues) => {
     const { email, password } = values;
     setMainButtonLoader(true);
     loginRequest(email, password)
@@ -51,29 +60,23 @@ export const LoginContainer = () => {
       .finally(() => setMainButtonLoader(false));
   };
 
+  const emailChange = (value: ChangeEvent<HTMLInputElement>) =>{
+    const { email: emailValue } = getValues();
+    const { email: emailError } = errors;
+
+    if (emailValue && !emailError && savedEmail !== emailValue) {
+      dispatch(setEmail(value.target.value));
+    }
+  };
+
   return (
-    <Container>
-      <Formik
-        validateOnMount
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values) => onSubmit(values)}
-      >
-        {({ errors, values, isValid, handleChange }) => {
-          if (!errors.email && values.email && values.email !== savedEmail) {
-            dispatch(setEmail(values.email));
-          }
-          return (
-            <Login
-              values={values}
-              mainButtonLoader={mainButtonLoader}
-              handleChange={handleChange}
-              isValid={isValid}
-            />
-          );
-        }}
-      </Formik>
-    </Container>
+    <Login
+      register={register}
+      onSubmit={handleSubmit(onSubmit)}
+      emailChange={emailChange}
+      mainButtonLoader={mainButtonLoader}
+      isValid={isValid}
+    />
   );
 };
 
