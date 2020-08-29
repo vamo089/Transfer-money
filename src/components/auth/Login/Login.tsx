@@ -42,6 +42,7 @@ export const Login = ({
     <Container>
       <form onSubmit={onSubmit}>
         <TextField
+          autoComplete="userName"
           onChange={emailChange}
           variant="outlined"
           name="email"
@@ -50,6 +51,7 @@ export const Login = ({
           fullWidth
         />
         <TextField
+          autoComplete="current-password"
           variant="outlined"
           name="password"
           label="password"

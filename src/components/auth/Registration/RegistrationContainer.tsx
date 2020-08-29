@@ -1,15 +1,16 @@
-import React, { useState } from "react";
-import { Formik } from "formik";
+import React, { ChangeEvent, useState } from "react";
 import { object, ref, string } from "yup";
 import { registrationRequest } from "services/registrationRequest";
 import cookies from "js-cookie";
 import { useSnackbar } from "notistack";
 import { ROUTES } from "helpers/constants";
 import { history } from "App";
-import { Container, Registration } from "components/auth/Registration/Registration";
+import { Registration } from "components/auth/Registration/Registration";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { setEmail, setToken } from "store/actions/auth";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers";
 
 export interface RegistrationInitialValues {
   username: string;
@@ -38,12 +39,22 @@ export const RegistrationContainer = () => {
     (state) => state.auth.email
   );
 
-  const initialValues: RegistrationInitialValues = {
-    username: "",
-    email: savedEmail,
-    password: "",
-    confirmPassword: "",
-  };
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    errors,
+    formState: { isValid },
+  } = useForm<RegistrationInitialValues>({
+    resolver: yupResolver(validationSchema),
+    mode: "all",
+    defaultValues: {
+      username: "",
+      email: savedEmail,
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
   const onSubmit = (values: RegistrationInitialValues) => {
     const { username, email, password } = values;
@@ -60,28 +71,21 @@ export const RegistrationContainer = () => {
       .finally(() => setMainButtonLoader(false));
   };
 
+  const emailChange = (value: ChangeEvent<HTMLInputElement>) => {
+    const { email: emailValue } = getValues();
+    const { email: emailError } = errors;
+    if (emailValue && !emailError && savedEmail !== emailValue) {
+      dispatch(setEmail(value.target.value));
+    }
+  };
+
   return (
-    <Container>
-      <Formik
-        validateOnMount
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values) => onSubmit(values)}
-      >
-        {({ errors, values, isValid, handleChange }) => {
-          if (!errors.email && values.email && values.email !== savedEmail) {
-            dispatch(setEmail(values.email));
-          }
-          return (
-            <Registration
-              values={values}
-              isValid={isValid}
-              handleChange={handleChange}
-              mainButtonLoader={mainButtonLoader}
-            />
-          );
-        }}
-      </Formik>
-    </Container>
+    <Registration
+      register={register}
+      onSubmit={handleSubmit(onSubmit)}
+      emailChange={emailChange}
+      mainButtonLoader={mainButtonLoader}
+      isValid={isValid}
+    />
   );
 };

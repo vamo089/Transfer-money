@@ -1,16 +1,14 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fade } from "@material-ui/core";
 import { theme } from "helpers/theme";
-import { MainButton } from "components/MainButton/MainButton";
-import { Link } from "react-router-dom";
-import { Form } from "formik";
-import { RegistrationFields } from "./RegistrationFields";
 import { ROUTES } from "helpers/constants";
-import { FormikHandlers } from "formik/dist/types";
-import { RegistrationInitialValues } from "./RegistrationContainer";
+import { MainButton } from "components/MainButton/MainButton";
+import { UseFormMethods } from "react-hook-form";
+import { RegistrationFields } from "./RegistrationFields";
 
-export const Container = styled.div`
+const Container = styled.div`
   width: 100%;
 `;
 
@@ -25,23 +23,25 @@ const SubText = styled.div`
   }
 `;
 
-interface RegistrationProps {
-  values: RegistrationInitialValues;
+interface Props {
   isValid: boolean;
   mainButtonLoader: boolean;
-  handleChange: FormikHandlers["handleChange"];
+  register: UseFormMethods["register"];
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  emailChange: (value: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Registration = ({
-  values,
+  emailChange,
   mainButtonLoader,
   isValid,
-  handleChange,
-}: RegistrationProps) => {
+  onSubmit,
+  register,
+}: Props) => {
   return (
     <Container>
-      <Form>
-        <RegistrationFields values={values} handleChange={handleChange} />
+      <form onSubmit={onSubmit}>
+        <RegistrationFields emailChange={emailChange} register={register} />
         <MainButton
           type="submit"
           disabled={!isValid}
@@ -54,7 +54,7 @@ export const Registration = ({
         <SubText>
           Do you have an account? <Link to={ROUTES.login}>Sign in here</Link>
         </SubText>
-      </Form>
+      </form>
     </Container>
   );
 };

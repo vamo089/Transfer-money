@@ -1,55 +1,51 @@
-import React from "react";
-import styled from "styled-components";
+import React, { ChangeEvent } from "react";
 import { TextField } from "components/TextField/TextField";
-import { RegistrationInitialValues } from "./RegistrationContainer";
-import { FormikHandlers } from "formik/dist/types";
-const TextFieldAuth = styled(TextField)`
-  margin-bottom: 20px;
-`;
+import { UseFormMethods } from "react-hook-form";
 
 interface Props {
-  values: RegistrationInitialValues;
-  handleChange: FormikHandlers["handleChange"];
+  register: UseFormMethods["register"];
+  emailChange: (value: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const RegistrationFields = ({ values, handleChange }: Props) => {
+export const RegistrationFields = ({ register, emailChange }: Props) => {
   return (
     <>
-      <TextFieldAuth
+      <TextField
+        autoComplete="username"
         variant="outlined"
         name="username"
         label="Name"
-        value={values.username}
-        onChange={handleChange}
         fullWidth
+        inputRef={register}
       />
-      <TextFieldAuth
+      <TextField
+        onChange={emailChange}
+        autoComplete="email"
         variant="outlined"
         name="email"
         type="email"
         label="Email"
-        value={values.email}
-        onChange={handleChange}
         fullWidth
+        inputRef={register}
       />
-      <TextFieldAuth
+      <TextField
+        autoComplete="new-password"
         variant="outlined"
         name="password"
         type="password"
         label="Password"
-        value={values.password}
-        onChange={handleChange}
         fullWidth
+        inputRef={register}
       />
 
-      <TextFieldAuth
+      <TextField
+        autoComplete="new-password"
         variant="outlined"
         name="confirmPassword"
         type="password"
         label="Confirm password"
-        value={values.confirmPassword}
-        onChange={handleChange}
         fullWidth
+        inputRef={register}
       />
     </>
   );
