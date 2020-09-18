@@ -5,7 +5,6 @@ import { Grid, Box } from "@material-ui/core";
 import { theme } from "helpers/theme";
 import { logout } from "helpers/logout";
 import { Header } from "components/Header";
-import { Transfer } from "components/Transfer";
 import { getUserInfo } from "services/getUserInfo";
 import { ListOfTransactions } from "components/ListOfTransactions";
 import {
@@ -13,6 +12,7 @@ import {
 } from "services/getListOfTransactions";
 import { setPreviousTransactionData, setUserData } from "store/actions/account";
 import { useDispatch } from "react-redux";
+import { TransferContainer } from "./Transfer/TransferContainer";
 
 const MainContainer = styled(Grid)`
   ${(props) => props.theme.breakpoints.up("sm")} {
@@ -56,7 +56,7 @@ export const Account = () => {
           <Container container justify="center">
             <Grid container justify="space-around">
               <Grid item xs={11} lg={5}>
-                <Transfer />
+                <TransferContainer />
               </Grid>
 
               <Grid item xs={11} lg={5}>

@@ -109,8 +109,8 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
     <TableHead>
       <TableRow>
         <TableCell> </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell align="left">
+        {headCells.map((headCell, i) => (
+          <TableCell align="left" key={i}>
             <TableSortLabel onClick={createSortHandler(headCell.id)}>
               {headCell.label}
             </TableSortLabel>
@@ -137,10 +137,9 @@ export const ListOfTransactions = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const previousTransactionData = useSelector<
-    RootState,
-    TransactionResponse[]
-  >((state) => state.account.previousTransactionData);
+  const previousTransactionData = useSelector<RootState, TransactionResponse[]>(
+    (state) => state.account.previousTransactionData
+  );
 
   const tableData = createData(previousTransactionData);
 
@@ -177,9 +176,9 @@ export const ListOfTransactions = () => {
                 <TableBody>
                   {stableSort(tableData, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
+                    .map((row, i) => {
                       return (
-                        <TableRow>
+                        <TableRow key={i}>
                           <TableCell> </TableCell>
                           <TableCell>{row.username}</TableCell>
                           <TableCell align="left">{row.amount}</TableCell>

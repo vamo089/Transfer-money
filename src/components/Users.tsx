@@ -1,47 +1,28 @@
 import React, { ChangeEvent } from "react";
+import { useDispatch } from "react-redux";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { filterUserList } from "services/filterUserList";
+import { filterUserList, FilterUserListData } from "services/filterUserList";
 import { debounce } from "helpers/debounce";
 import { TextField } from "components/TextField/TextField";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store";
-import { UserInfo } from "services/getUserInfo";
 import { setTransferUserData } from "store/actions/account";
-import { FormikHandlers } from "formik/dist/types";
-import { TransferInitialValues } from "components/account/Transfer/TransferContainer";
+
+interface Props {
+  register: any;
+}
 
 const getUsersList = debounce((value) => {
   return filterUserList(value).then((data) => data);
 }, 1000);
 
-interface Props {
-  values: TransferInitialValues;
-  handleChange: FormikHandlers["handleChange"];
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
-}
-export const Users = ({ values, setFieldValue, handleChange }: Props) => {
+export const Users = ({ register }: Props) => {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<any>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const dispatch = useDispatch();
 
-  const transferUserNameData = useSelector<
-    RootState,
-    Omit<UserInfo, "balance" | "email"> | null
-  >((state) => state.account.transferUserData);
-
-  const autocompleteOnChange = (
-    value: Omit<UserInfo, "balance" | "email"> | null
-  ) => {
-    dispatch(setTransferUserData(value));
-    setFieldValue("username", value?.name);
-  };
-
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(event);
     setLoading(true);
-
     getUsersList(event.target.value).then((data) => {
       setOptions(data);
       setLoading(false);
@@ -50,10 +31,9 @@ export const Users = ({ values, setFieldValue, handleChange }: Props) => {
 
   return (
     <Autocomplete
-      onChange={(
-        e: ChangeEvent<{}>,
-        value: { id: string; name: string } | null
-      ) => autocompleteOnChange(value)}
+      onChange={(e: ChangeEvent<{}>, value: FilterUserListData | null) =>
+        dispatch(setTransferUserData(value))
+      }
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
@@ -64,11 +44,10 @@ export const Users = ({ values, setFieldValue, handleChange }: Props) => {
       renderInput={(renderInputParams) => (
         <TextField
           onChange={onChange}
-          onBlur={() => setFieldValue("username", transferUserNameData?.name)}
           variant="outlined"
           name="username"
           label="User Name"
-          value={values.username}
+          inputRef={register}
           fullWidth
           {...renderInputParams}
         />
