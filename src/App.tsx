@@ -1,5 +1,5 @@
-import React from "react";
-import { Router } from "react-router-dom";
+import React, { StrictMode } from "react";
+import { HashRouter, Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { SnackbarProvider } from "notistack";
 import { Normalize } from "styled-normalize";
@@ -33,7 +33,7 @@ export const history = createBrowserHistory();
 const App = () => {
   return (
     <Provider store={store}>
-      <Router history={history}>
+      <HashRouter>
         <Normalize />
         <GlobalStyle />
 
@@ -46,10 +46,12 @@ const App = () => {
           }}
         >
           <Container>
-            <Routing />
+            <StrictMode>
+              <Routing />
+            </StrictMode>
           </Container>
         </SnackbarProvider>
-      </Router>
+      </HashRouter>
     </Provider>
   );
 };

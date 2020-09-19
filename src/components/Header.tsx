@@ -8,6 +8,7 @@ import { Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { UserInfo } from "services/getUserInfo";
+import {useHistory} from "react-router-dom";
 
 const Container = styled(Grid)`
   width: 100%;
@@ -53,6 +54,7 @@ const Logout = styled.div`
 `;
 
 export const Header = () => {
+  const history = useHistory();
   const userData = useSelector<RootState, Omit<UserInfo, "id" | "email">>(
     (state) => state.account.userData
   );
@@ -69,7 +71,7 @@ export const Header = () => {
         </NameContainer>
       </RightSide>
       <LeftSide>
-        <Logout onClick={logout}>
+        <Logout onClick={() => logout(history)}>
           Logout <ExitToAppIcon />
         </Logout>
       </LeftSide>

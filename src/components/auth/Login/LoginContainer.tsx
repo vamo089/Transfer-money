@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Login } from "components/auth/Login/Login";
 import { object, string } from "yup";
 import { useSnackbar } from "notistack";
@@ -8,9 +8,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import { loginRequest } from "services/loginRequest";
 import { ROUTES } from "helpers/constants";
-import {setEmail, setToken} from "store/actions/auth";
+import { setEmail, setToken } from "store/actions/auth";
 import cookies from "js-cookie";
-import { history } from "App";
+import { useHistory } from "react-router-dom";
 
 export interface LoginInitialValues {
   email: string;
@@ -23,6 +23,7 @@ const validationSchema = object({
 });
 
 export const LoginContainer = () => {
+  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const [mainButtonLoader, setMainButtonLoader] = useState<boolean>(false);
 
@@ -60,7 +61,7 @@ export const LoginContainer = () => {
       .finally(() => setMainButtonLoader(false));
   };
 
-  const emailChange = (value: ChangeEvent<HTMLInputElement>) =>{
+  const emailChange = (value: ChangeEvent<HTMLInputElement>) => {
     const { email: emailValue } = getValues();
     const { email: emailError } = errors;
 

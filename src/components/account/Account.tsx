@@ -13,6 +13,7 @@ import {
 import { setPreviousTransactionData, setUserData } from "store/actions/account";
 import { useDispatch } from "react-redux";
 import { TransferContainer } from "./Transfer/TransferContainer";
+import {useHistory} from "react-router-dom";
 
 const MainContainer = styled(Grid)`
   ${(props) => props.theme.breakpoints.up("sm")} {
@@ -32,19 +33,20 @@ const Container = styled(Grid)`
 `;
 
 export const Account = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
     getUserInfo()
       .then((user_info_token) => dispatch(setUserData(user_info_token)))
       .catch(
         ({ response }) =>
-          "UnauthorizedError: jwt expired" === response.data.trim() && logout()
+          "UnauthorizedError: jwt expired" === response.data.trim() && logout(history)
       );
 
     getListOfTransactions()
       .then((data) => dispatch(setPreviousTransactionData(data)))
       .catch(({ response }) => {
-        "UnauthorizedError: jwt expired" === response.data.trim() && logout();
+        "UnauthorizedError: jwt expired" === response.data.trim() && logout(history);
       });
   });
   const theme = useTheme();

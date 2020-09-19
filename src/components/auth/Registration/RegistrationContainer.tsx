@@ -4,13 +4,13 @@ import { registrationRequest } from "services/registrationRequest";
 import cookies from "js-cookie";
 import { useSnackbar } from "notistack";
 import { ROUTES } from "helpers/constants";
-import { history } from "App";
 import { Registration } from "components/auth/Registration/Registration";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { setEmail, setToken } from "store/actions/auth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
+import {useHistory} from "react-router-dom";
 
 export interface RegistrationInitialValues {
   username: string;
@@ -30,6 +30,7 @@ const validationSchema = object({
 });
 
 export const RegistrationContainer = () => {
+  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const [mainButtonLoader, setMainButtonLoader] = useState<boolean>(false);
 

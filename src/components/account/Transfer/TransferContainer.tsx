@@ -10,6 +10,7 @@ import { createTransaction } from "services/createTransaction";
 import { getListOfTransactions } from "services/getListOfTransactions";
 import { setPreviousTransactionData, setUserData } from "store/actions/account";
 import { Transfer } from "./Transfer";
+import {useHistory} from "react-router-dom";
 
 
 export interface TransferInitialValues {
@@ -17,17 +18,19 @@ export interface TransferInitialValues {
   sum: number;
 }
 
-const currentUserBalance = () => {
-  return getUserInfo()
-    .then((user_info_token) => user_info_token.balance)
-    .catch(({ response }) => response.data === "UnauthorizedError" && logout());
-};
 
 export const TransferContainer = () => {
+  const history = useHistory();
   const [mainButtonLoader, setMainButtonLoader] = useState<boolean>(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const dispatch = useDispatch();
+
+  const currentUserBalance = () => {
+    return getUserInfo()
+      .then((user_info_token) => user_info_token.balance)
+      .catch(({ response }) => response.data === "UnauthorizedError" && logout(history));
+  };
 
   const {
     register,
