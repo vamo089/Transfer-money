@@ -1,5 +1,4 @@
-import { REMOVE_TOKEN, SET_EMAIL, SET_TOKEN } from "store/types/auth";
-import { AuthActionTypes } from "store/types/auth";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AuthState {
   email: string;
@@ -7,22 +6,20 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  email: "",
-  token: null,
+  email: '',
+  token: null
 };
 
-export function authReducer(
-  state = initialState,
-  action: AuthActionTypes
-): AuthState {
-  switch (action.type) {
-    case SET_EMAIL:
-      return { ...state, email: action.payload };
-    case SET_TOKEN:
-      return { ...state, token: action.payload };
-    case REMOVE_TOKEN:
-      return { ...state, token: null };
-    default:
-      return state;
+const reducer = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    setEmail: (state, action: PayloadAction<AuthState['email']>): AuthState => ({ ...state, email: action.payload }),
+    setToken: (state, action: PayloadAction<AuthState['token']>): AuthState => ({ ...state, token: action.payload }),
+    removeToken: (state): AuthState => ({ ...state, token: null })
   }
-}
+});
+
+export const { setEmail, setToken, removeToken } = reducer.actions;
+
+export const authReducer = reducer.reducer;

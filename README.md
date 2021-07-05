@@ -2,6 +2,7 @@
 
 #### Work stack:
 * [React(stateless component + hooks)](https://github.com/facebook/react)
+* [reduxjs/toolkit](https://github.com/reduxjs/redux-toolkit)
 * [TypeScript](https://github.com/Microsoft/TypeScript)
 * [Formik](https://github.com/jaredpalmer/formik)
 * [Yup](https://github.com/jquense/yup)

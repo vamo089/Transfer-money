@@ -1,13 +1,14 @@
-import React, { StrictMode } from "react";
-import { HashRouter, Router } from "react-router-dom";
-import { createBrowserHistory } from "history";
-import { SnackbarProvider } from "notistack";
-import { Normalize } from "styled-normalize";
-import styled, { createGlobalStyle } from "styled-components";
-import { theme } from "helpers/theme";
-import { Provider } from "react-redux";
-import store from "store";
-import Routing from "components/Routing";
+import Routing from 'components/Routing';
+import { theme } from 'helpers/theme';
+import { createBrowserHistory } from 'history';
+import { SnackbarProvider } from 'notistack';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { HashRouter } from 'react-router-dom';
+import store from 'store';
+import styled, { createGlobalStyle } from 'styled-components';
+import { Normalize } from 'styled-normalize';
+
 const GlobalStyle = createGlobalStyle`
 body{
   @font-face {
@@ -23,37 +24,33 @@ const Container = styled.div`
   display: flex;
   height: 100vh;
   text-align: center;
-  font-family: "SF-Regular", sans-serif;
+  font-family: 'SF-Regular', sans-serif;
   background: url(${theme.backgrounds.login});
   background-size: cover;
 `;
 
 export const history = createBrowserHistory();
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <HashRouter>
-        <Normalize />
-        <GlobalStyle />
+const App: React.FC = () => (
+  <Provider store={store}>
+    <HashRouter>
+      <Normalize />
+      <GlobalStyle />
 
-        <SnackbarProvider
-          maxSnack={3}
-          autoHideDuration={4000}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          <Container>
-            <StrictMode>
-              <Routing />
-            </StrictMode>
-          </Container>
-        </SnackbarProvider>
-      </HashRouter>
-    </Provider>
-  );
-};
+      <SnackbarProvider
+        maxSnack={3}
+        autoHideDuration={4000}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+      >
+        <Container>
+          <Routing />
+        </Container>
+      </SnackbarProvider>
+    </HashRouter>
+  </Provider>
+);
 
 export default App;
