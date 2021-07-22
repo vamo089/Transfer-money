@@ -41,6 +41,8 @@ module.exports = {
     'no-shadow': 'off',
     'no-undef': 'off',
     camelcase: ['error', { ignoreDestructuring: true }],
-    '@typescript-eslint/camelcase': 'off'
+    '@typescript-eslint/camelcase': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off'
   }
 };

@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers';
+import Snackbar, { SnackbarProps } from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import { Login } from 'components/auth/Login/Login';
 import { ROUTES } from 'helpers/constants';
 import cookies from 'js-cookie';
-import { useSnackbar } from 'notistack';
 import React, { ChangeEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -22,10 +23,11 @@ const validationSchema = object({
   password: string().min(6).required()
 });
 
-export const LoginContainer = () => {
+export const LoginContainer: React.FC = () => {
   const history = useHistory();
-  const { enqueueSnackbar } = useSnackbar();
-  const [mainButtonLoader, setMainButtonLoader] = useState<boolean>(false);
+  const [alertMessageStatus, setAlertMessageStatus] = useState({ open: false, message: null });
+
+  const [mainButtonLoader, setMainButtonLoader] = useState(false);
 
   const dispatch = useAppDispatch();
   const savedEmail = useSelector<RootState, string>((state) => state.auth.email);
@@ -33,7 +35,6 @@ export const LoginContainer = () => {
   const {
     register,
     handleSubmit,
-    getValues,
     errors,
     formState: { isValid }
   } = useForm<LoginInitialValues>({
@@ -44,8 +45,7 @@ export const LoginContainer = () => {
     }
   });
 
-  const onSubmit = (values: LoginInitialValues) => {
-    const { email, password } = values;
+  const onSubmit = ({ email, password }: LoginInitialValues) => {
     setMainButtonLoader(true);
     loginRequest(email, password)
       .then(({ id_token }) => {
@@ -53,20 +53,35 @@ export const LoginContainer = () => {
         history.push(ROUTES.account);
         dispatch(setToken(id_token));
       })
-      .catch(({ response }) => enqueueSnackbar(response.data, { variant: 'error' }))
+      .catch(({ response }) => setAlertMessageStatus({ open: true, message: response.data }))
       .finally(() => setMainButtonLoader(false));
   };
 
   const emailChange = (value: ChangeEvent<HTMLInputElement>) => {
-    const { email: emailValue } = getValues();
+    const emailValue = value.target.value;
     const { email: emailError } = errors;
-
-    if (emailValue && !emailError && savedEmail !== emailValue) {
-      dispatch(setEmail(value.target.value));
+    if (emailError && savedEmail !== emailValue) {
+      dispatch(setEmail(emailValue));
     }
   };
 
-  return <Login register={register} onSubmit={handleSubmit(onSubmit)} emailChange={emailChange} mainButtonLoader={mainButtonLoader} isValid={isValid} />;
+  const alertMessageClose: SnackbarProps['onClose'] = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlertMessageStatus({ open: false, message: null });
+  };
+
+  return (
+    <>
+      <Login register={register} onSubmit={handleSubmit(onSubmit)} emailChange={emailChange} mainButtonLoader={mainButtonLoader} isValid={isValid} />
+      <Snackbar autoHideDuration={2000} open={alertMessageStatus.open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} onClose={alertMessageClose}>
+        <MuiAlert elevation={4} variant="filled" severity="error">
+          {alertMessageStatus.message}
+        </MuiAlert>
+      </Snackbar>
+    </>
+  );
 };
 
 export default LoginContainer;
