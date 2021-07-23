@@ -25,7 +25,7 @@ module.exports = {
     curly: 'error',
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'no-console': 'error',
-    'max-len': ['error', { code: 200 }],
+    'max-len': ['error', { code: 120 }],
     'max-lines': ['error', 500],
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
@@ -43,6 +43,7 @@ module.exports = {
     camelcase: ['error', { ignoreDestructuring: true }],
     '@typescript-eslint/camelcase': 'off',
     'react/jsx-props-no-spreading': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off'
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'react/no-unescaped-entities': 'off'
   }
 };
