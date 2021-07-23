@@ -1,10 +1,11 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import styled from "styled-components";
-import { theme } from "helpers/theme";
-import { ROUTES } from "helpers/constants";
-import LoginContainer from "components/auth/Login/LoginContainer";
-import { RegistrationContainer } from "./Registration/RegistrationContainer";
+import { LoginContainer } from 'components/auth/Login/LoginContainer';
+import { ROUTES } from 'helpers/constants';
+import { theme } from 'helpers/theme';
+import React from 'react';
+import { Route } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { RegistrationContainer } from './Registration/RegistrationContainer';
 
 const AuthContainer = styled.div`
   width: 100%;
@@ -19,11 +20,9 @@ const AuthContainer = styled.div`
   box-sizing: border-box;
 `;
 
-export const Auth = () => {
-  return (
-    <AuthContainer>
-      <Route path={ROUTES.login} component={LoginContainer} />
-      <Route path={ROUTES.registration} component={RegistrationContainer} />
-    </AuthContainer>
-  );
-};
+export const Auth: React.FC = () => (
+  <AuthContainer>
+    <Route path={ROUTES.login} component={LoginContainer} />
+    <Route path={ROUTES.registration} component={RegistrationContainer} />
+  </AuthContainer>
+);

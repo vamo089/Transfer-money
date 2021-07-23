@@ -74,8 +74,19 @@ export const LoginContainer: React.FC = () => {
 
   return (
     <>
-      <Login register={register} onSubmit={handleSubmit(onSubmit)} emailChange={emailChange} mainButtonLoader={mainButtonLoader} isValid={isValid} />
-      <Snackbar autoHideDuration={2000} open={alertMessageStatus.open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} onClose={alertMessageClose}>
+      <Login
+        register={register}
+        onSubmit={handleSubmit(onSubmit)}
+        emailChange={emailChange}
+        mainButtonLoader={mainButtonLoader}
+        isValid={isValid}
+      />
+      <Snackbar
+        autoHideDuration={2000}
+        open={alertMessageStatus.open}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={alertMessageClose}
+      >
         <MuiAlert elevation={4} variant="filled" severity="error">
           {alertMessageStatus.message}
         </MuiAlert>
@@ -83,5 +94,3 @@ export const LoginContainer: React.FC = () => {
     </>
   );
 };
-
-export default LoginContainer;
