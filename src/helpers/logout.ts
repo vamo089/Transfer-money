@@ -1,11 +1,11 @@
-import Cookies from "js-cookie";
-import { ROUTES } from "helpers/constants";
-import { removeToken } from "store/actions/auth";
-import { dispatch } from "store";
-import {History} from "history";
+import { ROUTES } from 'helpers/constants';
+import { History } from 'history';
+import Cookies from 'js-cookie';
+import { dispatch } from 'store';
+import { removeToken } from 'store/reducers/auth';
 
 export const logout = (history: History<History.LocationState>) => {
   dispatch(removeToken());
-  Cookies.remove("token");
+  Cookies.remove('token');
   history.push(ROUTES.login);
 };
