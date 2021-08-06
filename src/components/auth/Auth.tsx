@@ -22,7 +22,11 @@ const AuthContainer = styled.div`
 
 export const Auth: React.FC = () => (
   <AuthContainer>
-    <Route path={ROUTES.login} component={LoginContainer} />
-    <Route path={ROUTES.registration} component={RegistrationContainer} />
+    <Route path={ROUTES.login}>
+      <LoginContainer />
+    </Route>
+    <Route path={ROUTES.registration}>
+      <RegistrationContainer />
+    </Route>
   </AuthContainer>
 );
