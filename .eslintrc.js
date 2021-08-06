@@ -8,7 +8,13 @@ module.exports = {
       version: 'detect'
     }
   },
-  extends: ['plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'airbnb', 'airbnb/hooks', 'plugin:jsx-a11y/recommended'],
+  extends: [
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'airbnb',
+    'airbnb/hooks',
+    'plugin:jsx-a11y/recommended'
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
@@ -40,10 +46,12 @@ module.exports = {
     'object-curly-newline': 'off',
     'no-shadow': 'off',
     'no-undef': 'off',
-    camelcase: ['error', { ignoreDestructuring: true }],
     '@typescript-eslint/camelcase': 'off',
+    camelcase: ['error', { ignoreDestructuring: true }],
     'react/jsx-props-no-spreading': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    'react/no-unescaped-entities': 'off'
+    'react/no-unescaped-entities': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   }
 };
