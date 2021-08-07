@@ -9,9 +9,11 @@ import { setToken } from 'store/reducers/auth';
 
 const Account = React.lazy(() => import('components/account'));
 const Auth = React.lazy(() => import('components/auth'));
-const Routing: React.FC = () => {
+
+export const Routing: React.FC = () => {
   const location = useLocation();
   const history = useHistory();
+
   useEffect(() => {
     history.push(token ? ROUTES.account : ROUTES.login);
   }, [location]);
@@ -36,5 +38,3 @@ const Routing: React.FC = () => {
     </>
   );
 };
-
-export default Routing;

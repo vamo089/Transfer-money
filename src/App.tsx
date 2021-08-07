@@ -1,4 +1,4 @@
-import Routing from 'components/Routing';
+import { Routing } from 'components/Routing';
 import { theme } from 'helpers/theme';
 import { createBrowserHistory } from 'history';
 import { SnackbarProvider } from 'notistack';
