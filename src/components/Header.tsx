@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import PersonIcon from "@material-ui/icons/Person";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { theme } from "helpers/theme";
-import { logout } from "helpers/logout";
-import { Grid } from "@material-ui/core";
-import { useSelector } from "react-redux";
-import { RootState } from "store";
-import { UserInfo } from "services/getUserInfo";
-import {useHistory} from "react-router-dom";
+import { Grid } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonIcon from '@material-ui/icons/Person';
+import { logout } from 'helpers/logout';
+import { theme } from 'helpers/theme';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { UserInfo } from 'services/getUserInfo';
+import { RootState } from 'store';
+import styled from 'styled-components';
 
 const Container = styled(Grid)`
   width: 100%;
@@ -53,11 +53,9 @@ const Logout = styled.div`
   }
 `;
 
-export const Header = () => {
+export const Header: React.FC = () => {
   const history = useHistory();
-  const userData = useSelector<RootState, Omit<UserInfo, "id" | "email">>(
-    (state) => state.account.userData
-  );
+  const userData = useSelector<RootState, Omit<UserInfo, 'id' | 'email'>>((state) => state.account.userData);
   const { name, balance } = userData;
   return (
     <Container>
@@ -66,13 +64,15 @@ export const Header = () => {
         <NameContainer>
           <div>{name}</div>
           <span>
-            PW balance: <b>{balance}</b>
+            PW balance:
+            <b>{balance}</b>
           </span>
         </NameContainer>
       </RightSide>
       <LeftSide>
         <Logout onClick={() => logout(history)}>
-          Logout <ExitToAppIcon />
+          Logout
+          <ExitToAppIcon />
         </Logout>
       </LeftSide>
     </Container>
