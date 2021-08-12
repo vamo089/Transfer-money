@@ -1,7 +1,6 @@
 import { Routing } from 'components/Routing';
 import { theme } from 'helpers/theme';
 import { createBrowserHistory } from 'history';
-import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
@@ -36,19 +35,9 @@ const App: React.FC = () => (
     <HashRouter>
       <Normalize />
       <GlobalStyle />
-
-      <SnackbarProvider
-        maxSnack={3}
-        autoHideDuration={4000}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-      >
-        <Container>
-          <Routing />
-        </Container>
-      </SnackbarProvider>
+      <Container>
+        <Routing />
+      </Container>
     </HashRouter>
   </Provider>
 );
