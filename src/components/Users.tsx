@@ -1,39 +1,47 @@
-import React, { ChangeEvent } from "react";
-import { useDispatch } from "react-redux";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { filterUserList, FilterUserListData } from "services/filterUserList";
-import { debounce } from "helpers/debounce";
-import { TextField } from "components/TextField/TextField";
-import { setTransferUserData } from "store/actions/account";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { TextField } from 'components/TextField/TextField';
+import React, { ChangeEvent, useState } from 'react';
+import { UseFormMethods } from 'react-hook-form';
+import { filterUserList, FilterUserListData } from 'services/filterUserList';
+import { setTransferUserData } from 'store/actions/account';
+import { useDebouncedCallback } from 'use-debounce';
+
+import { useAppDispatch } from '../store';
+import { TransferInitialValues } from './account/Transfer/TransferContainer';
 
 interface Props {
-  register: any;
+  setValue: UseFormMethods<TransferInitialValues>['setValue'];
+  trigger: UseFormMethods<TransferInitialValues>['trigger'];
+  register: UseFormMethods<TransferInitialValues>['register'];
 }
 
-const getUsersList = debounce((value) => {
-  return filterUserList(value).then((data) => data);
-}, 1000);
+export const Users = ({ register, trigger, setValue }: Props) => {
+  const [open, setOpen] = useState(false);
+  const [options, setOptions] = useState<FilterUserListData[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-export const Users = ({ register }: Props) => {
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState<any>([]);
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
-  const dispatch = useDispatch();
-
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLoading(true);
-    getUsersList(event.target.value).then((data) => {
+  const inputOnChange = (value: React.ChangeEvent<HTMLInputElement>) => {
+    filterUserList(value.target.value).then((data) => {
       setOptions(data);
       setLoading(false);
     });
   };
 
+  const autoCompleteChange = (e: ChangeEvent<{}>, value: FilterUserListData | null) => {
+    dispatch(setTransferUserData(value));
+    setValue('username', value?.name);
+    trigger();
+  };
+
+  const debouncedOnChange = useDebouncedCallback((value) => {
+    inputOnChange(value);
+  }, 1000);
+
   return (
     <Autocomplete
-      onChange={(e: ChangeEvent<{}>, value: FilterUserListData | null) =>
-        dispatch(setTransferUserData(value))
-      }
+      onChange={autoCompleteChange}
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
@@ -43,7 +51,10 @@ export const Users = ({ register }: Props) => {
       loading={loading}
       renderInput={(renderInputParams) => (
         <TextField
-          onChange={onChange}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setLoading(true);
+            debouncedOnChange(e);
+          }}
           variant="outlined"
           name="username"
           label="User Name"

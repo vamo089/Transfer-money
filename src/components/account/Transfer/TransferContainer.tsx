@@ -36,11 +36,12 @@ export const TransferContainer: React.FC = () => {
     handleSubmit,
     getValues,
     setValue,
+    trigger,
     formState: { isValid }
   } = useForm<TransferInitialValues>({
     resolver: yupResolver(
       object({
-        username: string().required(),
+        username: string(),
         sum: number().positive().required()
       })
     ),
@@ -80,7 +81,6 @@ export const TransferContainer: React.FC = () => {
     }
     setAlertMessageStatus({ open: false, message: '' });
   };
-
   return (
     <>
       <Transfer
@@ -89,6 +89,8 @@ export const TransferContainer: React.FC = () => {
         getValues={getValues()}
         mainButtonLoader={mainButtonLoader}
         isValid={isValid}
+        trigger={trigger}
+        setValue={setValue}
       />
       <Snackbar
         autoHideDuration={2000}

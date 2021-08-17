@@ -1,16 +1,16 @@
-import React, { FormEvent } from "react";
-import { useSelector } from "react-redux";
-import { UseFormMethods } from "react-hook-form";
-import { UnpackNestedValue } from "react-hook-form/dist/types/form";
-import styled from "styled-components";
-import { Card, Grid, Toolbar as _Toolbar, Typography } from "@material-ui/core";
-import { RootState } from "store";
-import { TextField } from "components/TextField/TextField";
-import { MainButton } from "components/MainButton/MainButton";
-import { Users } from "components/Users";
-import { theme } from "helpers/theme";
-import { TransferInitialValues } from "components/account/Transfer/TransferContainer";
-import {FilterUserListData} from "services/filterUserList";
+import { Card, Grid, Toolbar as _Toolbar, Typography } from '@material-ui/core';
+import { TransferInitialValues } from 'components/account/Transfer/TransferContainer';
+import { MainButton } from 'components/MainButton/MainButton';
+import { TextField } from 'components/TextField/TextField';
+import { Users } from 'components/Users';
+import { theme } from 'helpers/theme';
+import React, { FormEvent } from 'react';
+import { UseFormMethods } from 'react-hook-form';
+import { UnpackNestedValue } from 'react-hook-form/dist/types/form';
+import { useSelector } from 'react-redux';
+import { FilterUserListData } from 'services/filterUserList';
+import { RootState } from 'store';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 35px;
@@ -23,24 +23,16 @@ const Toolbar = styled(_Toolbar)`
 interface Props {
   isValid: boolean;
   mainButtonLoader: boolean;
-  register: UseFormMethods["register"];
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   getValues: UnpackNestedValue<TransferInitialValues>;
+  setValue: UseFormMethods<TransferInitialValues>['setValue'];
+  trigger: UseFormMethods<TransferInitialValues>['trigger'];
+  register: UseFormMethods<TransferInitialValues>['register'];
 }
 
-export const Transfer = ({
-  mainButtonLoader,
-  isValid,
-  onSubmit,
-  register,
-  getValues,
-}: Props) => {
-  const transferUserData = useSelector<RootState, FilterUserListData | null>(
-    (state) => state.account.transferUserData
-  );
-
+export const Transfer = ({ mainButtonLoader, isValid, onSubmit, register, getValues, trigger, setValue }: Props) => {
+  const transferUserData = useSelector<RootState, FilterUserListData | null>((state) => state.account.transferUserData);
   const autocompleteValue = getValues.username === transferUserData?.name;
-
   return (
     <Card>
       <Toolbar>
@@ -50,7 +42,7 @@ export const Transfer = ({
       </Toolbar>
       <Container>
         <form onSubmit={onSubmit}>
-          <Users register={register} />
+          <Users register={register} trigger={trigger} setValue={setValue} />
           <TextField
             variant="outlined"
             name="sum"
