@@ -22,21 +22,17 @@ export const Users = ({ register, trigger, setValue }: Props) => {
 
   const dispatch = useAppDispatch();
 
-  const inputOnChange = (value: React.ChangeEvent<HTMLInputElement>) => {
-    filterUserList(value.target.value).then((data) => {
-      setOptions(data);
-      setLoading(false);
-    });
-  };
-
   const autoCompleteChange = (e: ChangeEvent<{}>, value: FilterUserListData | null) => {
     dispatch(setTransferUserData(value));
     setValue('username', value?.name);
     trigger();
   };
 
-  const debouncedOnChange = useDebouncedCallback((value) => {
-    inputOnChange(value);
+  const inputOnChange = useDebouncedCallback((value: string) => {
+    filterUserList(value).then((data) => {
+      setOptions(data);
+      setLoading(false);
+    });
   }, 1000);
 
   return (
@@ -53,7 +49,7 @@ export const Users = ({ register, trigger, setValue }: Props) => {
         <TextField
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setLoading(true);
-            debouncedOnChange(e);
+            inputOnChange(e.target.value);
           }}
           variant="outlined"
           name="username"
