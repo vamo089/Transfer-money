@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getListOfTransactions } from 'services/getListOfTransactions';
 import { getUserInfo } from 'services/getUserInfo';
-import { setPreviousTransactionData, setUserData } from 'store/actions/account';
+import { setPreviousTransactionData, setUserData } from 'store/reducers/account';
 
 import { Account } from './Account';
 

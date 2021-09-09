@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { registrationRequest } from 'services/registrationRequest';
 import { RootState } from 'store';
-import { setEmail, setToken } from 'store/actions/auth';
+import { setEmail, setToken } from 'store/reducers/auth';
 import { object, ref, string } from 'yup';
 
 export interface RegistrationInitialValues {

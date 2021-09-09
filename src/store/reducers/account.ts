@@ -1,39 +1,44 @@
-import {
-  SET_USER_DATA,
-  SET_TRANSFER_USER_DATA,
-  SET_PREVIOUS_TRANSACTION_DATA,
-} from "store/types/account";
-import { AccountActionTypes } from "store/types/account";
-import { UserInfo } from "services/getUserInfo";
-import { TransactionResponse } from "services/getListOfTransactions";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TransactionResponse } from 'services/getListOfTransactions';
+import { UserInfo } from 'services/getUserInfo';
 
-interface AuthState {
-  userData: Omit<UserInfo, "id" | "email">;
-  transferUserData: Omit<UserInfo, "balance" | "email"> | null;
+interface AccountState {
+  userData: Omit<UserInfo, 'id' | 'email'>;
+  transferUserData: Omit<UserInfo, 'balance' | 'email'> | null;
   previousTransactionData: TransactionResponse[];
 }
 
-const initialState: AuthState = {
+const initialState: AccountState = {
   userData: {
-    name: "",
-    balance: 0,
+    name: '',
+    balance: 0
   },
   transferUserData: null,
-  previousTransactionData: [],
+  previousTransactionData: []
 };
 
-export function accountReducer(
-  state = initialState,
-  action: AccountActionTypes
-): AuthState {
-  switch (action.type) {
-    case SET_USER_DATA:
-      return { ...state, userData: action.payload };
-    case SET_TRANSFER_USER_DATA:
-      return { ...state, transferUserData: action.payload };
-    case SET_PREVIOUS_TRANSACTION_DATA:
-      return { ...state, previousTransactionData: action.payload };
-    default:
-      return state;
+const reducer = createSlice({
+  name: 'account',
+  initialState,
+  reducers: {
+    setUserData: (state, action: PayloadAction<AccountState['userData']>): AccountState => ({
+      ...state,
+      userData: action.payload
+    }),
+    setTransferUserData: (state, action: PayloadAction<AccountState['transferUserData']>): AccountState => ({
+      ...state,
+      transferUserData: action.payload
+    }),
+    setPreviousTransactionData: (
+      state,
+      action: PayloadAction<AccountState['previousTransactionData']>
+    ): AccountState => ({
+      ...state,
+      previousTransactionData: action.payload
+    })
   }
-}
+});
+
+export const { setUserData, setTransferUserData, setPreviousTransactionData } = reducer.actions;
+
+export const accountReducer = reducer.reducer;

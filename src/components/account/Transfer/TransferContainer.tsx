@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import { createTransaction } from 'services/createTransaction';
 import { getListOfTransactions } from 'services/getListOfTransactions';
 import { getUserInfo } from 'services/getUserInfo';
-import { setPreviousTransactionData, setUserData } from 'store/actions/account';
+import { setPreviousTransactionData, setUserData } from 'store/reducers/account';
 import { number, object, string } from 'yup';
 
 import { useAppDispatch } from '../../../store';

@@ -3,10 +3,10 @@ import { TextField } from 'components/TextField/TextField';
 import React, { ChangeEvent, useState } from 'react';
 import { UseFormMethods } from 'react-hook-form';
 import { filterUserList, FilterUserListData } from 'services/filterUserList';
-import { setTransferUserData } from 'store/actions/account';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { useAppDispatch } from '../store';
+import { setTransferUserData } from '../store/reducers/account';
 import { TransferInitialValues } from './account/Transfer/TransferContainer';
 
 interface Props {
