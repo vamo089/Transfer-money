@@ -1,11 +1,11 @@
 import { Box, Grid, Theme } from '@material-ui/core';
 import { StylesProvider } from '@material-ui/core/styles';
 import { Header } from 'components/Header';
-import { ListOfTransactions } from 'components/ListOfTransactions';
 import { theme } from 'helpers/theme';
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 
+import { ListOfTransactions } from '../ListOfTransactions/ListOfTransactions';
 import { TransferContainer } from './Transfer/TransferContainer';
 
 const MainContainer = styled(Grid)`
