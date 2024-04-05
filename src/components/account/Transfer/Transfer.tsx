@@ -9,7 +9,7 @@ import { UseFormMethods } from 'react-hook-form';
 import { UnpackNestedValue } from 'react-hook-form/dist/types/form';
 import { useSelector } from 'react-redux';
 import { FilterUserListData } from 'services/filterUserList';
-import { RootState } from 'store';
+import { RootState } from 'store/index';
 import styled from 'styled-components';
 
 const Container = styled.div`
