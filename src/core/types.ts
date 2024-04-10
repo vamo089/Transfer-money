@@ -14,13 +14,13 @@ export type TCommonRequestParameters<Options = unknown> = {
 
 export type TRequestParameters<
   Options = unknown,
-  Body extends TJson | undefined | null = undefined,
+  Body extends TJson | undefined | null = undefined
 > = Body extends undefined
   ? TCommonRequestParameters<Options>
   : Body extends null
-    ? {
-        body?: TJson;
-      } & TCommonRequestParameters<Options>
-    : {
-        body: Body;
-      } & TCommonRequestParameters<Options>;
+  ? {
+      body?: TJson;
+    } & TCommonRequestParameters<Options>
+  : {
+      body: Body;
+    } & TCommonRequestParameters<Options>;

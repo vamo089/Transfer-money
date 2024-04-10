@@ -5,7 +5,7 @@ module.exports = {
   ignorePatterns: ['*.js'],
   rules: {
     camelcase: ['off'],
-    'jsx-quotes': ['error', 'prefer-single'],
+    'jsx-quotes': ['error', 'prefer-double'],
     'no-console': ['error'],
     'no-prototype-builtins': ['off'],
     'react/prop-types': ['off'],
@@ -20,7 +20,7 @@ module.exports = {
     'no-useless-computed-key': ['off'],
     '@typescript-eslint/require-array-sort-compare': ['off'],
     '@next/next/no-html-link-for-pages': ['off'],
-    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-explicit-any': 'off'
   },
   overrides: [
     {
@@ -30,85 +30,85 @@ module.exports = {
         commonjs: true,
         es6: true,
         jest: true,
-        node: true,
+        node: true
       },
       parser: '@typescript-eslint/parser',
       parserOptions: {
         ecmaVersion: 2020,
-        sourceType: 'module',
+        sourceType: 'module'
       },
-      plugins: ['import', 'react', '@typescript-eslint', 'react-hooks', 'jsx-a11y', 'simple-import-sort'],
+      plugins: ['import', 'react', '@typescript-eslint', 'jsx-a11y', 'simple-import-sort'],
       rules: {
         'react/function-component-definition': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/jsx-no-bind': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/naming-convention': [
-          'error',
+          'warn',
           {
             selector: 'default',
             format: ['camelCase'],
-            leadingUnderscore: 'allow',
+            leadingUnderscore: 'allow'
           },
           {
             selector: 'variable',
-            format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+            format: ['camelCase', 'UPPER_CASE', 'PascalCase']
           },
           {
             selector: 'parameter',
             format: ['camelCase'],
-            leadingUnderscore: 'allow',
+            leadingUnderscore: 'allow'
           },
           {
             selector: 'typeLike',
-            format: ['PascalCase'],
+            format: ['PascalCase']
           },
           {
             selector: 'interface',
             format: ['PascalCase'],
             custom: {
               regex: '^I[A-Z0-9]',
-              match: true,
-            },
+              match: true
+            }
           },
           {
             selector: 'typeAlias',
             format: ['PascalCase'],
             custom: {
               regex: '^T[A-Z0-9]',
-              match: true,
-            },
+              match: true
+            }
           },
           {
             selector: ['enum', 'enumMember'],
-            format: ['PascalCase'],
+            format: ['PascalCase']
           },
           {
             selector: 'property',
             format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
-            leadingUnderscore: 'allow',
+            leadingUnderscore: 'allow'
           },
           {
             selector: 'property',
             filter: ',^(__html|__v)$',
-            format: null,
+            format: null
           },
           {
             selector: ['function', 'import'],
-            format: ['camelCase', 'PascalCase'],
-          },
+            format: ['camelCase', 'PascalCase']
+          }
         ],
         '@typescript-eslint/array-type': [
           'off',
           {
-            default: 'array',
-          },
+            default: 'array'
+          }
         ],
         'max-lines-per-function': [
           'error',
           {
-            max: 180,
-          },
+            max: 180
+          }
         ],
         '@typescript-eslint/consistent-type-definitions': 'off',
         '@typescript-eslint/prefer-ts-expect-error': 'off',
@@ -125,8 +125,8 @@ module.exports = {
           {
             argsIgnorePattern: '^_',
             varsIgnorePattern: '^_',
-            caughtErrorsIgnorePattern: '^_',
-          },
+            caughtErrorsIgnorePattern: '^_'
+          }
         ],
         'import/no-default-export': 'off',
         'max-classes-per-file': 0,
@@ -152,14 +152,14 @@ module.exports = {
           2,
           {
             allow: ['^UNSAFE_'],
-            properties: 'never',
-          },
+            properties: 'never'
+          }
         ],
         complexity: [
           2,
           {
-            max: 10,
-          },
+            max: 10
+          }
         ],
         'consistent-return': 2,
         curly: 0,
@@ -170,16 +170,16 @@ module.exports = {
           2,
           'declaration',
           {
-            allowArrowFunctions: true,
-          },
+            allowArrowFunctions: true
+          }
         ],
         'guard-for-in': 2,
         'id-length': [
           2,
           {
             max: 56,
-            min: 1,
-          },
+            min: 1
+          }
         ],
         'jsx-a11y/label-has-for': [
           2,
@@ -187,24 +187,24 @@ module.exports = {
             allowChildren: false,
             components: ['Label'],
             required: {
-              some: ['nesting', 'id'],
-            },
-          },
+              some: ['nesting', 'id']
+            }
+          }
         ],
         'line-comment-position': 2,
         'max-depth': 2,
         'max-lines': [
           2,
           {
-            max: 500,
-          },
+            max: 500
+          }
         ],
         'max-nested-callbacks': [2, 4],
         'max-params': [
           2,
           {
-            max: 5,
-          },
+            max: 5
+          }
         ],
         'new-cap': 0,
         'no-alert': 2,
@@ -215,8 +215,8 @@ module.exports = {
         'no-console': [
           2,
           {
-            allow: ['error', 'warn', 'info'],
-          },
+            allow: ['error', 'warn', 'info']
+          }
         ],
         'no-continue': 2,
         'no-div-regex': 0,
@@ -267,8 +267,8 @@ module.exports = {
         'react/jsx-filename-extension': [
           2,
           {
-            extensions: ['.tsx'],
-          },
+            extensions: ['.tsx']
+          }
         ],
         'react/jsx-sort-props': 0,
         'react/no-unsafe': 2,
@@ -279,7 +279,13 @@ module.exports = {
         'spaced-comment': 2,
         'simple-import-sort/imports': 'warn',
         'simple-import-sort/exports': 'warn',
-      },
-    },
-  ],
+        'prettier/prettier': [
+          'error',
+          {
+            endOfLine: 'auto'
+          }
+        ]
+      }
+    }
+  ]
 };
