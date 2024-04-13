@@ -9,7 +9,7 @@ export interface IHttpClientResponse<D extends TJson = TJson, H = unknown, R = u
 
 export type TCommonRequestParameters<Options = unknown> = {
   url?: string;
-  options?: Omit<Options, 'body' | 'url' | 'method'>;
+  options?: Omit<Options, "body" | "url" | "method">;
 };
 
 export type TRequestParameters<

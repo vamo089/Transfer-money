@@ -1,16 +1,16 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TAppAsyncThunkConfig } from 'store/types';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TAppAsyncThunkConfig } from "store/types";
 
-import { IAuthResponse, IAuthState, ILoginParams, IRegistrationParams } from './types';
+import { IAuthResponse, IAuthState, ILoginParams, IRegistrationParams } from "./types";
 
 const initialState: IAuthState = {
-  email: '',
+  email: "",
   token: null,
   hasErrors: false,
   isLoading: false
 };
 export const login = createAsyncThunk<IAuthResponse, ILoginParams, TAppAsyncThunkConfig>(
-  'auth/login',
+  "auth/login",
   async (params, { extra: { authService }, rejectWithValue }) => {
     try {
       return await authService.login(params);
@@ -21,7 +21,7 @@ export const login = createAsyncThunk<IAuthResponse, ILoginParams, TAppAsyncThun
 );
 
 export const registration = createAsyncThunk<IAuthResponse, IRegistrationParams, TAppAsyncThunkConfig>(
-  'auth/registration',
+  "auth/registration",
   async (params, { extra: { authService }, rejectWithValue }) => {
     try {
       return await authService.registration(params);
@@ -32,13 +32,13 @@ export const registration = createAsyncThunk<IAuthResponse, IRegistrationParams,
 );
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    setEmail: (state, { payload }: PayloadAction<IAuthState['email']>) => {
+    setEmail: (state, { payload }: PayloadAction<IAuthState["email"]>) => {
       state.email = payload;
     },
-    setToken: (state, { payload }: PayloadAction<IAuthState['token']>) => {
+    setToken: (state, { payload }: PayloadAction<IAuthState["token"]>) => {
       state.token = payload;
     },
     removeToken: (state) => {

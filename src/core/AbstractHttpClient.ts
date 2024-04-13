@@ -1,4 +1,4 @@
-import { IHttpClientResponse, TJson, TRequestParameters } from './types';
+import { IHttpClientResponse, TJson, TRequestParameters } from "./types";
 
 export abstract class AbstractHttpClient<VendorClient = unknown, RequestOptions = unknown, RawRs = unknown> {
   public readonly vendorClient: VendorClient;
@@ -10,33 +10,33 @@ export abstract class AbstractHttpClient<VendorClient = unknown, RequestOptions 
   public abstract post<Body extends TJson = TJson, Rs extends TJson = TJson>({
     url,
     options,
-    body,
+    body
   }: TRequestParameters<RequestOptions, Body>): Promise<IHttpClientResponse<Rs, TJson, RawRs>>;
 
   public abstract put<Body extends TJson = TJson, Rs extends TJson = TJson>({
     url,
     options,
-    body,
+    body
   }: TRequestParameters<RequestOptions, Body>): Promise<IHttpClientResponse<Rs, TJson, RawRs>>;
 
   public abstract patch<Body extends TJson = TJson, Rs extends TJson = TJson>({
     url,
     options,
-    body,
+    body
   }: TRequestParameters<RequestOptions, Body>): Promise<IHttpClientResponse<Rs, TJson, RawRs>>;
 
   public abstract delete<Rs extends TJson = TJson>({
     url,
-    options,
+    options
   }: TRequestParameters<RequestOptions>): Promise<IHttpClientResponse<Rs, TJson, RawRs>>;
 
   public abstract head<Rs extends TJson = TJson>({
     url,
-    options,
+    options
   }: TRequestParameters<RequestOptions>): Promise<IHttpClientResponse<Rs, TJson, RawRs>>;
 
   public abstract get<Rs extends TJson = TJson>({
     url,
-    options,
+    options
   }: TRequestParameters<RequestOptions>): Promise<IHttpClientResponse<Rs, TJson, RawRs>>;
 }

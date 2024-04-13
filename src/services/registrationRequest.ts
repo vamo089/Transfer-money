@@ -1,5 +1,5 @@
-import { BASE_URL } from "helpers/constants";
 import axios from "axios";
+import { BASE_URL } from "helpers/constants";
 
 type FetchRegistration = (
   username: string,
@@ -9,14 +9,11 @@ type FetchRegistration = (
   id_token: string;
 }>;
 
-export const registrationRequest: FetchRegistration = (
-  username,
-  password,
-  email
-) =>
-  axios.post<{ id_token: string }>(`${BASE_URL}/users`, {
+export const registrationRequest: FetchRegistration = (username, password, email) =>
+  axios
+    .post<{ id_token: string }>(`${BASE_URL}/users`, {
       username,
       password,
-      email,
+      email
     })
-    .then(({data}) => data);
+    .then(({ data }) => data);

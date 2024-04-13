@@ -1,6 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { extraArgs } from 'store/extraArgs';
-import { rootReducer } from 'store/reducers';
+import { configureStore } from "@reduxjs/toolkit";
+import { extraArgs } from "store/extraArgs";
+import { rootReducer } from "store/reducers";
 
 export function getStore() {
   return configureStore({
