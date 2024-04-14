@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-
+import globalBackground from "public/images/background.jpg";
 export const THEME_COLORS = {
   primary: "#F1F1F5",
   secondary: "rgba(247, 247, 250, 0.41)",
@@ -17,6 +17,6 @@ export const theme = createTheme({
     }
   },
   backgrounds: {
-    login: "./images/background.jpg"
+    login: globalBackground.src
   }
 });

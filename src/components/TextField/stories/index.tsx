@@ -1,6 +1,7 @@
+import { boolean, withKnobs } from "@storybook/addon-knobs";
 import React from "react";
+
 import { TextField as TextFieldComponent } from "../TextField";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 export default {
   title: "TextField",

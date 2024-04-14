@@ -1,5 +1,4 @@
-import { Theme } from '@mui/material';
-import React from 'react';
+import { THEME_COLORS } from "~shared/ui/theme";
 
 interface CustomTheme {
   colors: typeof THEME_COLORS;
@@ -8,7 +7,7 @@ interface CustomTheme {
   };
 }
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface Theme extends CustomTheme {}
 
   interface ThemeOptions extends CustomTheme {}

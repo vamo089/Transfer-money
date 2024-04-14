@@ -1,5 +1,6 @@
-import { TransactionResponse } from '../../../services/getListOfTransactions';
-import { TableData } from '../ListOfTransactions';
+import { TransactionResponse } from "services/getListOfTransactions";
+
+import { TableData } from "../ListOfTransactions";
 
 export const createData = (data: TransactionResponse[]) => {
   const parsedData: TableData[] = [];

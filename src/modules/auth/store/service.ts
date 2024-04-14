@@ -8,11 +8,11 @@ export class AuthService extends BaseHttpClient {
     super(BASE_URL);
   }
   public async login(params: ILoginParams): Promise<IAuthResponse> {
-    const response = await this.post<ILoginParams, IAuthResponse>({ url: "/users", body: params });
+    const response = await this.post<ILoginParams, IAuthResponse>({ url: "/sessions/create", body: params });
     return response.data;
   }
   public async registration(params: IRegistrationParams): Promise<IAuthResponse> {
-    const response = await this.post<IRegistrationParams, IAuthResponse>({ url: "/sessions/create", body: params });
+    const response = await this.post<IRegistrationParams, IAuthResponse>({ url: "/users", body: params });
     return response.data;
   }
 }
