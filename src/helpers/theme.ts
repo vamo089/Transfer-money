@@ -1,5 +1,3 @@
-import { canUseWebP } from "./canUseWebP";
-
 interface Theme {
   colors: {
     primary: string;
@@ -16,9 +14,9 @@ export const theme: Theme = {
     primary: "#F1F1F5",
     secondary: "rgba(247, 247, 250, 0.41)",
     tertiary: "#21223B",
-    blue: "#36aeea",
+    blue: "#36aeea"
   },
   backgrounds: {
-    login: `./images/background.${canUseWebP() ? "webp" : "jpg"}`,
-  },
+    login: "./images/background.jpg"
+  }
 };

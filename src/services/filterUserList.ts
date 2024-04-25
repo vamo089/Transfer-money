@@ -1,21 +1,16 @@
-import axios from 'axios';
-import { BASE_URL } from 'helpers/constants';
-import cookies from 'js-cookie';
+import axios from "axios";
+import { BASE_URL } from "helpers/constants";
+import cookies from "js-cookie";
+import { IFilterUserListData, TFilterUserList } from "src/modules/account/store/types";
 
-export interface FilterUserListData {
-  id: string;
-  name: string;
-}
-export type FilterUserList = (filter: string) => Promise<FilterUserListData[]>;
-
-export const filterUserList: FilterUserList = (filter) =>
+export const filterUserList: TFilterUserList = (filter) =>
   axios
-    .post<FilterUserListData[]>(
+    .post<IFilterUserListData[]>(
       `${BASE_URL}/api/protected/users/list`,
       { filter },
       {
         headers: {
-          Authorization: `Bearer ${cookies.get('token')}`
+          Authorization: `Bearer ${cookies.get("token")}`
         }
       }
     )

@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { Button as _Button, CircularProgress, fade } from "@material-ui/core";
+import { Button as _Button, CircularProgress } from "@mui/material";
 import { theme } from "helpers/theme";
 import React from "react";
+import styled from "styled-components";
 
 export const Button = styled(({ ...props }) => (
   // eslint-disable-next-line react/jsx-pascal-case
@@ -9,7 +9,7 @@ export const Button = styled(({ ...props }) => (
 ))`
   color: ${theme.colors.primary} !important;
   border-color: ${theme.colors.primary} !important;
-  background-color: ${fade(theme.colors.blue, 0.8)} !important;
+  background-color: ${theme.colors.blue} !important;
   border: 1px solid ${theme.colors.blue} !important;
   height: 60px;
   text-transform: uppercase;

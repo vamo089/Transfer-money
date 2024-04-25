@@ -1,6 +1,7 @@
+import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import React from "react";
+
 import { MainButton as MainButtonComponent } from "../MainButton";
-import { withKnobs, boolean, text } from "@storybook/addon-knobs";
 
 export default {
   title: "MainButton",
